@@ -16,7 +16,7 @@ namespace IWantApp.Endpoints.Categories
                 Id = c.Id,
                 Name = c.Name,
                 Active = c.Active
-            }); ;
+            }); 
 
             return Results.Ok(response);
         }

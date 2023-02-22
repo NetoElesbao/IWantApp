@@ -1,13 +1,10 @@
-﻿using IWantApp.Domain.Products;
-using IWantApp.Infra.Data;
+﻿using IWantApp.Infra.Data;
 using Microsoft.AspNetCore.Mvc;
-using System;
-
 namespace IWantApp.Endpoints.Categories
 {
     public class CategoryPut
     {
-        public static string Pattern => "categories/{id}";
+        public static string Pattern => "categories/{id:guid}";
         public static string[] Methods => new string[] { HttpMethods.Put.ToString() };
         public static Delegate Handler = Action;
 
@@ -20,8 +17,6 @@ namespace IWantApp.Endpoints.Categories
             context.SaveChanges();
 
             return Results.Ok();
-            
         }
-
     }
 }

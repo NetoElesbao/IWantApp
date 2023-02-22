@@ -1,7 +1,4 @@
-﻿
-
-using Flunt.Validations;
-using System.Diagnostics.Contracts;
+﻿using Flunt.Validations;
 
 namespace IWantApp.Domain.Products;
 
@@ -14,7 +11,6 @@ public class Category : Entity
     {
         var contract = new Contract<Category>()
             .IsNotNullOrEmpty(name, "Name")
-            .IsNotNullOrWhiteSpace(name, "Name")
             .IsNotNullOrEmpty(createdBy, "CreatedBy")
             .IsNotNullOrEmpty(editedBy, "EditedBy");
         AddNotifications(contract);

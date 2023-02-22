@@ -1,18 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using IWantApp.Domain.Products;
 using Flunt.Notifications;
-
 namespace IWantApp.Infra.Data
 {
     public class ApplicationDbContext : DbContext
-    {   
-       public DbSet<Product> Products { get; set;}
-       public DbSet<Category> Categories { get; set;}
+    {
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
-       public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-       protected override void OnModelCreating(ModelBuilder builder)
-       {
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
             builder.Ignore<Notification>();
 
             builder.Entity<Product>()
@@ -21,12 +20,12 @@ namespace IWantApp.Infra.Data
                 .Property(p => p.Description).HasMaxLength(255);
             builder.Entity<Category>()
                 .Property(p => p.Name).IsRequired();
-       }
+        }
 
-       protected override void ConfigureConventions(ModelConfigurationBuilder configuration) 
-       {
+        protected override void ConfigureConventions(ModelConfigurationBuilder configuration)
+        {
             configuration.Properties<string>()
                 .HaveMaxLength(100);
-       }
+        }
     }
 }

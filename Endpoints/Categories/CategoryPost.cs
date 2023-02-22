@@ -1,7 +1,5 @@
 ﻿using IWantApp.Domain.Products;
 using IWantApp.Infra.Data;
-using Microsoft.AspNetCore.Routing.Template;
-
 namespace IWantApp.Endpoints.Categories;
 
 public class CategoryPost
@@ -22,6 +20,4 @@ public class CategoryPost
 
         return Results.Created($"/categories/{category.Id}", category.Id);
     }
-
-
 }
