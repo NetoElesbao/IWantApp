@@ -16,20 +16,20 @@ namespace IWantApp.Endpoints.Employees
         public static Delegate Handler => Action;
 
 
-        // public static IResult Action(int page, int rows, UserManager<IdentityUser> manager)
-        // {
-        //     var users = manager.Users.Skip((page - 1) * rows).Take(rows).ToList();
-        //     var usersDTO = new List<EmployeeResponseDTO>();
+        public static IResult Action(int page, int rows, UserManager<IdentityUser> manager)
+        {
+            var users = manager.Users.Skip((page - 1) * rows).Take(rows).ToList();
+            var usersDTO = new List<EmployeeResponseDTO>();
 
-        //     foreach (var user in users)
-        //     {
-        //         var claims = manager.GetClaimsAsync(user).Result;
-        //         var claim = claims.FirstOrDefault(e => e.Type.Equals("Name"));
-        //         var result = claim != null ? claim.Value : string.Empty;
-        //         usersDTO.Add(new EmployeeResponseDTO(user.Email, result));
-        //     }
-        //     return Results.Ok(usersDTO);
-        // }
+            foreach (var user in users)
+            {
+                var claims = manager.GetClaimsAsync(user).Result;
+                var claim = claims.FirstOrDefault(e => e.Type.Equals("Name"));
+                var result = claim != null ? claim.Value : string.Empty;
+                usersDTO.Add(new EmployeeResponseDTO(user.Email, result));
+            }
+            return Results.Ok(usersDTO);
+        }
 
         public static IResult Action(int page, int rows, IConfiguration configuration)
         {
