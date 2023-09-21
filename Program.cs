@@ -14,9 +14,9 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
     // aqui se pode personalizar a convensão das senhas
 }).AddEntityFrameworkStores<ApplicationDbContext>();
 
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<QueryAllUsersWithClaimName>();
 
 var app = builder.Build();
 

@@ -6,6 +6,7 @@ using IWantApp.Utilities;
 using Dapper;
 using IWantApp.Models.DTOs.Employees;
 using Microsoft.Data.SqlClient;
+using IWantApp.Infra.Data;
 
 namespace IWantApp.Endpoints.Employees
 {
@@ -17,25 +18,19 @@ namespace IWantApp.Endpoints.Employees
 
 
         //ENDPOINT DE SOLICITAÇÃO DE USUARIOS USANDO O DAPPER, COM PAGINAÇÃO
-        public static IResult Action(IConfiguration configuration, int? page = 1, int? rows = 10)
+        public static IResult Action(QueryAllUsersWithClaimName service, int? page = 1, int? rows = 10)
         {
-            var databse = new SqlConnection(configuration.GetConnectionString("Connection"));
-
-            var query = @"select Email, ClaimValue as Name
-                        from AspNetUsers a inner join AspNetUserClaims b
-                        on a.Id = b.UserId and ClaimType = 'Name' 
-                        order by Name
-                        offset (@page - 1) * @rows rows fetch next @rows rows only ";
-
-            var employees = databse.Query<EmployeeResponseDTO>
-            (
-                query,
-                new { page, rows }
-            );
-
-            return Results.Ok(employees);
+            return Results.Ok(service.ExecuteQuery(page.Value, rows.Value));
         }
 
+    }
+}
+      
+      
+      
+      
+      
+      
         //ENDPOINT DE SOLICITAÇÃO DE USUARIOS USANDO O ENTITY, COM PAGINAÇÃO
         // public static IResult Action(int page, int rows, UserManager<IdentityUser> manager)
         // {
@@ -52,5 +47,3 @@ namespace IWantApp.Endpoints.Employees
 
         //     return Results.Ok(usersDTO.OrderBy(e => e.Name));
         // }
-    }
-}
