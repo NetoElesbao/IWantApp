@@ -30,9 +30,9 @@ namespace IWantApp.Endpoints.Security
 
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
 
-                Audience = "IWantApp",
+                Issuer = "Issuer",
 
-                Issuer = "Issuer"
+                Audience = "IWantApp"
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();

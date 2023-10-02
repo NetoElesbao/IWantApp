@@ -1,9 +1,12 @@
+using System.Text;
 using IWantApp.Endpoints.Categories;
 using IWantApp.Endpoints.Employees;
 using IWantApp.Endpoints.Security;
 using IWantApp.Infra.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,12 +23,32 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 }).AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddAuthorization();
+builder.Services.AddAuthentication(e =>
+{
+    e.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    e.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateActor = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidateAudience = true,
+        ValidIssuer = builder.Configuration["jwtBearerTokenSettings:Issuer"],
+        ValidAudience = builder.Configuration["jwtBearerTokenSettings:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["jwtBearerTokenSettings:SecretKey"]))
+    };
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<QueryAllUsersWithClaimName>();
 
 var app = builder.Build();
+
+app.UseAuthorization();
+app.UseAuthentication();
 
 if (app.Environment.IsDevelopment())
 {
