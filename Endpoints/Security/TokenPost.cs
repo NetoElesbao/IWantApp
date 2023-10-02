@@ -13,26 +13,25 @@ namespace IWantApp.Endpoints.Security
         public static string[] HttpMethods => new string[] { HttpMethod.Post.ToString() };
         public static Delegate Handler => Action;
 
-        public static IResult Action(LoginRequest login, UserManager<IdentityUser> manager)
+        public static IResult Action(LoginRequest loginRequest, UserManager<IdentityUser> userManager)
         {
-            var user = manager.FindByEmailAsync(login.Email).Result;
-            if (user.Equals(null)) Results.BadRequest();
-            if (!manager.CheckPasswordAsync(user, login.Password).Result) Results.BadRequest();
+            var user = userManager.FindByEmailAsync(loginRequest.Email).Result;
 
+            if (user is null) return Results.NotFound("User not found!");
+            if (!userManager.CheckPasswordAsync(user, loginRequest.Password).Result) return Results.BadRequest("Bad password!");
 
-
-            var key = Encoding.ASCII.GetBytes("AS#@$7gfnF*e¨7$fkrgg");
-            
+            var key = Encoding.ASCII.GetBytes("erg#$Af@$A#F$#reggg5ew4g4t4t");
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Email, login.Email)
+                    new (ClaimTypes.Email, loginRequest.Email)
                 }),
 
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
 
                 Audience = "IWantApp",
+
                 Issuer = "Issuer"
             };
 
@@ -41,5 +40,6 @@ namespace IWantApp.Endpoints.Security
 
             return Results.Ok(new { token = tokenHandler.WriteToken(token) });
         }
+
     }
 }

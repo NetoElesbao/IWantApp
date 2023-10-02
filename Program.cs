@@ -11,9 +11,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(e => e.UseSqlServer(builder.
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 {
-    options.Password.RequiredLength = 3;
+    options.Password.RequiredLength = 4;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireDigit = false;
     // aqui se pode personalizar a convensão das senhas
 }).AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddAuthorization();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
