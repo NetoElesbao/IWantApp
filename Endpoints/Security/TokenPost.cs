@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using IWantApp.Models.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
@@ -13,33 +14,37 @@ namespace IWantApp.Endpoints.Security
         public static string[] HttpMethods => new string[] { HttpMethod.Post.ToString() };
         public static Delegate Handler => Action;
 
-        public static IResult Action(LoginRequest loginRequest, UserManager<IdentityUser> userManager)
+        [AllowAnonymous]
+        public static IResult Action(LoginRequest loginRequest, IConfiguration configuration, UserManager<IdentityUser> userManager)
         {
             var user = userManager.FindByEmailAsync(loginRequest.Email).Result;
 
-            if (user is null) return Results.NotFound("User not found!");
+            if (user == null) return Results.NotFound("User not found!");
+
             if (!userManager.CheckPasswordAsync(user, loginRequest.Password).Result) return Results.BadRequest("Bad password!");
 
-            var key = Encoding.ASCII.GetBytes("erg#$Af@$A#F$#reggg5ew4g4t4t");
+            var key = Encoding.ASCII.GetBytes(configuration["JwtBearerTokenSettings:SecretKey"]);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new (ClaimTypes.Email, loginRequest.Email)
+                    new(ClaimTypes.Email, loginRequest.Email)
                 }),
 
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
 
-                Issuer = "Issuer",
+                Audience = configuration["JwtBearerTokenSettings:Audience"],
 
-                Audience = "IWantApp"
+                Issuer = configuration["JwtBearerTokenSettings:Issuer"],
+
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
-
             return Results.Ok(new { token = tokenHandler.WriteToken(token) });
-        }
 
+        }
     }
 }
+
+

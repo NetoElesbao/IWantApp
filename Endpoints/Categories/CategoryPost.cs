@@ -2,6 +2,8 @@ using IWantApp.Infra.Data;
 using IWantApp.Models.DTOs;
 using IWantApp.Models.Products;
 using IWantApp.Utilities;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace IWantApp.Endpoints.Categories
 {
@@ -11,6 +13,7 @@ namespace IWantApp.Endpoints.Categories
         public static string[] HttpMethods = new string[] { HttpMethod.Post.ToString() };
         public static Delegate Handler => Action;
 
+        [Authorize]
         public static IResult Action(CategoryDTO categoryDTO, ApplicationDbContext context)
         {
             var category = new Category(categoryDTO.Name, "nome teste", "nome teste");
@@ -28,3 +31,4 @@ namespace IWantApp.Endpoints.Categories
 
     }
 }
+ 
