@@ -23,6 +23,7 @@ namespace IWantApp.Endpoints.Security
         )
         {
             var user = userManager.FindByEmailAsync(loginRequest.Email).Result;
+            var userCLaims = userManager.GetClaimsAsync(user).Result;
 
             if (user is null) return Results.NotFound("User not found!");
 
@@ -30,12 +31,15 @@ namespace IWantApp.Endpoints.Security
 
             var key = Encoding.ASCII.GetBytes(configuration["JwtBearerTokenSettings:SecretKey"]);
 
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
+            var subject = new ClaimsIdentity(new Claim[]
                 {
                     new (ClaimTypes.Email, loginRequest.Email)
-                }),
+                });
+            subject.AddClaims(userCLaims);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = subject,
 
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
 

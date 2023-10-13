@@ -4,6 +4,7 @@ using IWantApp.Endpoints.Employees;
 using IWantApp.Endpoints.Security;
 using IWantApp.Infra.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -22,7 +23,16 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
     // aqui se pode personalizar a convensão das senhas
 }).AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(e =>
+{
+    e.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+        .RequireAuthenticatedUser().Build();
+
+    e.AddPolicy("EmployeePolicy", e => e.RequireAuthenticatedUser().RequireClaim("EmployeeCode"));
+
+    e.AddPolicy("EmployeePolicy111", e => e.RequireAuthenticatedUser().RequireClaim("EmployeeCode", "111"));
+});
 builder.Services.AddAuthentication(x =>
 {
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

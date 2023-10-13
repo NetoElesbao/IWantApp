@@ -20,13 +20,13 @@ namespace IWantApp.Endpoints.Employees
             var result = userManager.CreateAsync(user, employeeDTO.Password).Result;
             if (!result.Succeeded) { return Results.ValidationProblem(result.Errors.ConvertToProblemDetails()); }
 
-            var ClaimsList = new List<Claim>()
-            {
-                new ("Name", employeeDTO.Name),
-                new ("EmployeeCode", employeeDTO.EmployeeCode)
-            };
-            var resultClaims = userManager.AddClaimsAsync(user, ClaimsList).Result;
-            if (!resultClaims.Succeeded) { return Results.ValidationProblem(result.Errors.ConvertToProblemDetails()); }
+            // var ClaimsList = new List<Claim>()
+            // {
+            //     new ("Name", employeeDTO.Name),
+            //     new ("EmployeeCode", employeeDTO.EmployeeCode)
+            // };
+            // var resultClaims = userManager.AddClaimsAsync(user, ClaimsList).Result;
+            // if (!resultClaims.Succeeded) { return Results.ValidationProblem(result.Errors.ConvertToProblemDetails()); }
 
             return Results.Created("/employees", user.Id);
 
