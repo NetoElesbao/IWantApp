@@ -28,9 +28,11 @@ namespace IWantApp.Models.Products
             AddNotifications(contract);
         }
 
-        public void EditCategory(string name)
+        public void EditCategory(string name, string editedBy)
         {
             Name = name;
+            EditedBy = editedBy;
+            EditedOn = DateTime.Now;
 
             Validation();
         }

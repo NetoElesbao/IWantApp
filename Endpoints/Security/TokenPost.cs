@@ -33,7 +33,8 @@ namespace IWantApp.Endpoints.Security
 
             var subject = new ClaimsIdentity(new Claim[]
                 {
-                    new (ClaimTypes.Email, loginRequest.Email)
+                    new (ClaimTypes.Email, loginRequest.Email),
+                    new (ClaimTypes.NameIdentifier, user.Id)
                 });
             subject.AddClaims(userCLaims);
 
@@ -45,7 +46,9 @@ namespace IWantApp.Endpoints.Security
 
                 Issuer = configuration["JwtBearerTokenSettings:Issuer"],
 
-                Audience = configuration["JwtBearerTokenSettings:Audience"]
+                Audience = configuration["JwtBearerTokenSettings:Audience"],
+
+                Expires = DateTime.UtcNow.AddMinutes(2)
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();

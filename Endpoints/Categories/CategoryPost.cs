@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using IWantApp.Infra.Data;
 using IWantApp.Models.DTOs;
 using IWantApp.Models.Products;
@@ -13,9 +14,11 @@ namespace IWantApp.Endpoints.Categories
         public static string[] HttpMethods = new string[] { HttpMethod.Post.ToString() };
         public static Delegate Handler => Action;
 
-        public static IResult Action(CategoryDTO categoryDTO, ApplicationDbContext context)
+        [Authorize(Policy = "EmployeePolicy")]
+        public static IResult Action(CategoryDTO categoryDTO, HttpContext http, ApplicationDbContext context)
         {
-            var category = new Category(categoryDTO.Name, "nome teste", "nome teste");
+            var UserId = http.User.Claims.First(e => e.Type.Equals(ClaimTypes.NameIdentifier)).Value;
+            var category = new Category(categoryDTO.Name, UserId, UserId);
 
             if (!category.IsValid)
             {
@@ -30,4 +33,3 @@ namespace IWantApp.Endpoints.Categories
 
     }
 }
- 
