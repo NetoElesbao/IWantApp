@@ -23,16 +23,19 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
     // aqui se pode personalizar a convensão das senhas
 }).AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddAuthorization(e =>
-{
-    e.FallbackPolicy = new AuthorizationPolicyBuilder()
-        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
-        .RequireAuthenticatedUser().Build();
+builder.Services.AddAuthorization();
 
-    e.AddPolicy("EmployeePolicy", e => e.RequireAuthenticatedUser().RequireClaim("EmployeeCode"));
+// e =>
+// {
+//     e.FallbackPolicy = new AuthorizationPolicyBuilder()
+//         .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+//         .RequireAuthenticatedUser().Build();
 
-    e.AddPolicy("EmployeePolicy111", e => e.RequireAuthenticatedUser().RequireClaim("EmployeeCode", "111"));
-});
+//     e.AddPolicy("EmployeePolicy", e => e.RequireAuthenticatedUser().RequireClaim("EmployeeCode"));
+
+//     e.AddPolicy("EmployeePolicy111", e => e.RequireAuthenticatedUser().RequireClaim("EmployeeCode", "111"));
+// }
+
 builder.Services.AddAuthentication(x =>
 {
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -53,7 +56,7 @@ builder.Services.AddAuthentication(x =>
     };
 });
 
-builder.Services.AddScoped<QueryAllUsersWithClaimName>();
+builder.Services.AddScoped<QueryAllEmployeesWithClaims>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

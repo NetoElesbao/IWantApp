@@ -5,6 +5,7 @@
 
 using System.Diagnostics.Contracts;
 using Flunt.Notifications;
+using IWantApp.Models.Products;
 using Microsoft.AspNetCore.Identity;
 
 namespace IWantApp.Utilities
@@ -15,15 +16,11 @@ namespace IWantApp.Utilities
         {
             return notifications.GroupBy(e => e.Key).ToDictionary(e => e.Key, e => e.Select(e => e.Message).ToArray());
         }
-
-        public static Dictionary<string, string[]> ConvertToProblemDetails(this IEnumerable<IdentityError> identityErrors)
+        public static Dictionary<string, string[]> ConvertToProblemDetails(this IEnumerable<IdentityError> errors)
         {
-            var dictionary = new Dictionary<string, string[]>() { { "EmployeeeErrors", identityErrors.Select(e => e.Description).ToArray() } };
-
-            return dictionary;
+            return new Dictionary<string, string[]> { { "EmployeeErrors", errors.Select(e => e.Description).ToArray() } };
         }
 
-       
 
     }
 }

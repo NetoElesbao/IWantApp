@@ -9,13 +9,13 @@ namespace IWantApp.Endpoints.Employees
         public static string[] HttpMethods => new string[] { HttpMethod.Get.ToString() };
         public static Delegate Handler => Action;
 
-        [Authorize(Policy = "EmployeePolicy111")]
+        // [Authorize(Policy = "EmployeePolicy111")]
         //ENDPOINT DE SOLICITAÇÃO DE USUARIOS USANDO O DAPPER, COM PAGINAÇÃO
-        public static IResult Action(QueryAllUsersWithClaimName service, int? page = 1, int? rows = 10)
-        {
-            return Results.Ok(service.ExecuteQuery(page.Value, rows.Value));
-        }
 
+        public static IResult Action(QueryAllEmployeesWithClaims query, int? page = 1, int? rows = 10)
+        {
+            return Results.Ok(query.ExecuteQuery(page.Value, rows.Value));
+        }
     }
 }
 

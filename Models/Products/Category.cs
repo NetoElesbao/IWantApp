@@ -1,7 +1,7 @@
 
+
 using Flunt.Validations;
 using IWantApp.Models.Products.Base;
-
 
 namespace IWantApp.Models.Products
 {
@@ -14,17 +14,16 @@ namespace IWantApp.Models.Products
             CreatedOn = DateTime.Now;
             EditedBy = editedBy;
             EditedOn = DateTime.Now;
-
             Validation();
         }
 
         public void Validation()
         {
             var contract = new Contract<Category>()
-                         .IsNotNullOrEmpty(Name, "Name")
-                         .IsGreaterOrEqualsThan(Name, 4, "Name")
-                         .IsNotNullOrEmpty(CreatedBy, "CreatedBy")
-                         .IsNotNullOrEmpty(EditedBy, "EditedBy");
+                .IsNotNullOrEmpty(Name, "Name")
+                .IsGreaterOrEqualsThan(Name, 4, "Name")
+                .IsNotNullOrEmpty(CreatedBy, "CreatedBy")
+                .IsNotNullOrEmpty(EditedBy, "EditedBy");
             AddNotifications(contract);
         }
 
@@ -33,10 +32,7 @@ namespace IWantApp.Models.Products
             Name = name;
             EditedBy = editedBy;
             EditedOn = DateTime.Now;
-
             Validation();
         }
-
-
     }
 }
