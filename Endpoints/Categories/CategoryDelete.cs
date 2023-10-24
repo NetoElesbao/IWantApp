@@ -13,15 +13,15 @@ namespace IWantApp.Endpoints.Categories
         public static string[] HttpMethods => new string[] { HttpMethod.Delete.ToString() };
         public static Delegate Handler => Action;
 
-        public static IResult Action(Guid id, ApplicationDbContext context)
+        public static async Task<IResult> Action(Guid id, ApplicationDbContext context)
         {
-            var category = context.Categories.Find(id);
+            var category = await context.Categories.FindAsync(id);
 
             if (category is null) { return Results.NotFound(); }
 
             context.Categories.Remove(category);
 
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             return Results.Ok(new CategoryDTO(category.Id, category.Name));
         }

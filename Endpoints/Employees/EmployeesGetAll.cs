@@ -11,9 +11,9 @@ namespace IWantApp.Endpoints.Employees
 
         [Authorize(Policy = "EmployeePolicy111")]
         //ENDPOINT DE SOLICITAÇÃO DE USUARIOS USANDO O DAPPER, COM PAGINAÇÃO
-        public static IResult Action(QueryAllUsersWithClaimName service, int? page = 1, int? rows = 10)
+        public static async Task<IResult> Action(QueryAllUsersWithClaimName service, int? page = 1, int? rows = 10)
         {
-            return Results.Ok(service.ExecuteQuery(page.Value, rows.Value));
+            return Results.Ok(await service.ExecuteQuery(page.Value, rows.Value));
         }
 
     }

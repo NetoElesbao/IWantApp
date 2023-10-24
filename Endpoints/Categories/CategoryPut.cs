@@ -17,10 +17,10 @@ namespace IWantApp.Endpoints.Categories
         public static string[] HttpMethods => new string[] { HttpMethod.Put.ToString() };
         public static Delegate Handler => Action;
 
-        public static IResult Action([FromRoute] Guid id, HttpContext http, CategoryDTO categoryDTO, ApplicationDbContext context)
+        public static async Task<IResult> Action([FromRoute] Guid id, HttpContext http, CategoryDTO categoryDTO, ApplicationDbContext context)
         {
             var UserId = http.User.Claims.First(e => e.Type.Equals(ClaimTypes.NameIdentifier)).Value;
-            var category = context.Categories.Find(id);
+            var category = await context.Categories.FindAsync(id);
 
             if (category is null) { return Results.NotFound(); }
 
@@ -28,7 +28,7 @@ namespace IWantApp.Endpoints.Categories
 
             if (!category.IsValid) { return Results.ValidationProblem(category.Notifications.ConvertToProblemDetails()); }
 
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             return Results.Ok(category.Id); // só pra facilitar a visualização do dev
         }

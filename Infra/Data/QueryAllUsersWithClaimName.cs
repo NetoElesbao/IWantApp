@@ -12,7 +12,7 @@ namespace IWantApp.Infra.Data
             this.configuration = configuration;
         }
 
-        public IEnumerable<EmployeeResponseDTO> ExecuteQuery(int page, int rows)
+        public async Task<IEnumerable<EmployeeResponseDTO>> ExecuteQuery(int page, int rows)
         {
             var database = new SqlConnection(configuration.GetConnectionString("Connection"));
 
@@ -22,7 +22,7 @@ namespace IWantApp.Infra.Data
                         order by Name
                         offset (@page - 1) * @rows rows fetch next @rows rows only";
 
-            return database.Query<EmployeeResponseDTO>(query, new { page, rows });
+            return await database.QueryAsync<EmployeeResponseDTO>(query, new { page, rows });
         }
     }
 }

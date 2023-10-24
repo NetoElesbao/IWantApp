@@ -15,7 +15,7 @@ namespace IWantApp.Endpoints.Categories
         public static Delegate Handler => Action;
 
         [Authorize(Policy = "EmployeePolicy")]
-        public static IResult Action(CategoryDTO categoryDTO, HttpContext http, ApplicationDbContext context)
+        public static async Task<IResult> Action(CategoryDTO categoryDTO, HttpContext http, ApplicationDbContext context)
         {
             var UserId = http.User.Claims.First(e => e.Type.Equals(ClaimTypes.NameIdentifier)).Value;
             var category = new Category(categoryDTO.Name, UserId, UserId);
@@ -26,7 +26,7 @@ namespace IWantApp.Endpoints.Categories
             }
 
             context.Categories.Add(category);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             return Results.Created("/categories", category.Id);
         }
