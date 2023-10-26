@@ -19,9 +19,14 @@ namespace IWantApp.Endpoints.Security
         (
             LoginRequest loginRequest,
             UserManager<IdentityUser> userManager,
-            IConfiguration configuration
+            IConfiguration configuration,
+            ILogger<TokenPost> logger
         )
         {
+            logger.LogInformation("Getting token");
+            logger.LogWarning("Warning");
+            logger.LogError("Error");
+
             var user = await userManager.FindByEmailAsync(loginRequest.Email);
             var userCLaims = await userManager.GetClaimsAsync(user);
 

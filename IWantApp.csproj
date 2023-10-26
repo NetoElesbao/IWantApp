@@ -7,6 +7,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Using Include="Flunt.Notifications"/>
+    <Using Include="Microsoft.AspNetCore.Identity"/>
+    <Using Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore"/>
+    <Using Include="Microsoft.EntityFrameworkCore"/>
+
+    <Using Include="System.Text"/>
+    <Using Include="IWantApp.Endpoints.Categories"/>
+    <Using Include="IWantApp.Endpoints.Employees"/>
+    <Using Include="IWantApp.Endpoints.Security"/>
+    <Using Include="IWantApp.Infra.Data"/>
+    <Using Include="Microsoft.AspNetCore.Authentication.JwtBearer"/>
+    <Using Include="Microsoft.AspNetCore.Authorization"/>
+    <Using Include="Microsoft.AspNetCore.Diagnostics"/>
+    <Using Include="Microsoft.Data.SqlClient"/>
+    <Using Include="Microsoft.IdentityModel.Tokens"/>
+
+   
+    <Using Include="IWantApp.Models.Products"/>
+ </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.123" />
     <PackageReference Include="Flunt" Version="2.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.0" />
@@ -25,3 +46,4 @@
   </ItemGroup>
 
 </Project>
+ 

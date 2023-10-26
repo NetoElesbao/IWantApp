@@ -1,13 +1,3 @@
-using System.Text;
-using IWantApp.Endpoints.Categories;
-using IWantApp.Endpoints.Employees;
-using IWantApp.Endpoints.Security;
-using IWantApp.Infra.Data;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -79,5 +69,18 @@ app.MapMethods(EmployeesPost.Pattern, EmployeesPost.HttpMethods, EmployeesPost.H
 app.MapMethods(EmployeesGetAll.Pattern, EmployeesGetAll.HttpMethods, EmployeesGetAll.Handler);
 
 app.MapMethods(TokenPost.Pattern, TokenPost.HttpMethods, TokenPost.Handler);
+
+app.UseExceptionHandler("/error");
+app.Map("/error", (HttpContext context) =>
+{
+    var error = context.Features?.Get<IExceptionHandlerFeature>()?.Error;
+
+    if (error != null)
+    {
+        if (error is SqlException) return Results.Problem(title: "Database out", statusCode: 500);
+    };
+
+    return Results.Problem("There was an error", statusCode: 500);
+});
 
 app.Run();
