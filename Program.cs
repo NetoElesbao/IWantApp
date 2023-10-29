@@ -1,10 +1,12 @@
 
 
 
+using IWantApp.Endpoints.Products;
 using Serilog;
 using Serilog.Sinks.MSSqlServer;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.WebHost.UseSerilog((context, configuration) =>
 {
     configuration
@@ -88,6 +90,12 @@ app.MapMethods(EmployeesPost.Pattern, EmployeesPost.HttpMethods, EmployeesPost.H
 app.MapMethods(EmployeesGetAll.Pattern, EmployeesGetAll.HttpMethods, EmployeesGetAll.Handler);
 
 app.MapMethods(TokenPost.Pattern, TokenPost.HttpMethods, TokenPost.Handler);
+app.MapMethods(TokenPost.Pattern, TokenPost.HttpMethods, TokenPost.Handler);
+
+app.MapMethods(ProductGetAll.Pattern, ProductGetAll.HttpMethods, ProductGetAll.Handler);
+app.MapMethods(ProductPost.Pattern, ProductPost.HttpMethods, ProductPost.Handler);
+app.MapMethods(ProductPut.Pattern, ProductPut.HttpMethods, ProductPut.Handler);
+app.MapMethods(ProductDelete.Pattern, ProductDelete.HttpMethods, ProductDelete.Handler);
 
 app.UseExceptionHandler("/error");
 app.Map("/error", (HttpContext context) =>

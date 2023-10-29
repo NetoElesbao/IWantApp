@@ -18,7 +18,8 @@ namespace IWantApp.Utilities
 
         public static Dictionary<string, string[]> ConvertToProblemDetails(this IEnumerable<IdentityError> identityErrors)
         {
-            var dictionary = new Dictionary<string, string[]>() { { "EmployeeeErrors", identityErrors.Select(e => e.Description).ToArray() } };
+            var dictionary = new Dictionary<string, string[]>() 
+            { { "EmployeeeErrors", identityErrors.Select(e => e.Description).ToArray() } };
 
             return dictionary;
         }

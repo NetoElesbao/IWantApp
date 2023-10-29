@@ -53,7 +53,7 @@ namespace IWantApp.Endpoints.Security
 
                 Audience = configuration["JwtBearerTokenSettings:Audience"],
 
-                Expires = DateTime.UtcNow.AddMinutes(4)
+                Expires = DateTime.UtcNow.AddHours(1)
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();

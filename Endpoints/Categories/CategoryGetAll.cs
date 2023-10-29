@@ -15,9 +15,9 @@ namespace IWantApp.Endpoints.Categories
 
         public static async Task<IResult> Action(ApplicationDbContext context)
         {
-            var users = context.Categories.Select(c => new CategoryDTO(c.Id, c.Name)).ToList();
+            var categories = context.Categories.Select(c => new CategoryDTO(c.Id, c.Name)).ToList();
 
-            return Results.Ok(users); 
+            return Results.Ok(categories); 
         }
     }
 } 

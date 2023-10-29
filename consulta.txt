@@ -1,0 +1,21 @@
+select * from AspnetUsers
+select * from AspNetUserClaims
+select * from Products
+select * from LogApi
+
+select * from AspNetUsers where Id = 'bfcf9291-6d0e-481a-a1af-f6cbdfac1bd5'
+
+select * from Categories where Id = '5D761C50-8C92-4A42-A7AA-7DDD542DCEBF'
+
+DBCC CHECKIDENT(AspNetUserClaims, RESEED, 0)
+
+insert Catem
+
+declare @page int = 1
+declare @rows int = 2
+
+select Email, ClaimValue as Name
+from AspNetUsers a inner JOIN AspNetUserClaims b
+on a.Id = b.UserId and ClaimType = 'Name'
+order by Name
+offset (@page - 1) * @rows rows FETCH next @rows rows ONLY
