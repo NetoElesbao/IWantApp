@@ -1,5 +1,24 @@
 
+
+
+using Serilog;
+using Serilog.Sinks.MSSqlServer;
+
 var builder = WebApplication.CreateBuilder(args);
+builder.WebHost.UseSerilog((context, configuration) =>
+{
+    configuration
+        .WriteTo.Console()
+        .WriteTo.MSSqlServer
+        (
+            context.Configuration.GetConnectionString("Connection"),
+            sinkOptions: new MSSqlServerSinkOptions()
+            {
+                AutoCreateSqlTable = true,
+                TableName = "LogApi"
+            }
+        );
+});
 
 builder.Services.AddDbContext<ApplicationDbContext>(e => e.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
 
@@ -21,7 +40,7 @@ builder.Services.AddAuthorization(e =>
 
     e.AddPolicy("EmployeePolicy", e => e.RequireAuthenticatedUser().RequireClaim("EmployeeCode"));
 
-    e.AddPolicy("EmployeePolicy111", e => e.RequireAuthenticatedUser().RequireClaim("EmployeeCode", "111"));
+    e.AddPolicy("EmployeePolicy011", e => e.RequireAuthenticatedUser().RequireClaim("EmployeeCode", "011"));
 });
 builder.Services.AddAuthentication(x =>
 {
@@ -77,7 +96,10 @@ app.Map("/error", (HttpContext context) =>
 
     if (error != null)
     {
-        if (error is SqlException) return Results.Problem(title: "Database out", statusCode: 500);
+        if (error is SqlException)
+        {
+            return Results.Problem(title: "Database out", statusCode: 500);
+        };
     };
 
     return Results.Problem("There was an error", statusCode: 500);
