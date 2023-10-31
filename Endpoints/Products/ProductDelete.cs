@@ -1,4 +1,4 @@
-using IWantApp.Models.DTOs;
+using IWantApp.Models.DTOs.Product;
 
 
 namespace IWantApp.Endpoints.Products
@@ -19,7 +19,7 @@ namespace IWantApp.Endpoints.Products
 
             await context.SaveChangesAsync();
 
-            return Results.Ok(new ProductDTO(product.Name, product.CategoryId, product.Description, product.HasStock));
+            return Results.Ok(new ProductResponseDTO(product.Name, product.Category.Name, product.Description, product.HasStock));
         }
 
     }

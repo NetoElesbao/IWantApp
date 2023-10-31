@@ -1,8 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using IWantApp.Infra.Data;
+
+
+
 using IWantApp.Models.DTOs;
 
 namespace IWantApp.Endpoints.Categories

@@ -1,7 +1,7 @@
 
 
 
-namespace IWantApp.Models.DTOs.Employees
+namespace IWantApp.Models.DTOs.Employee
 {
     public record EmployeeResponseDTO
     (

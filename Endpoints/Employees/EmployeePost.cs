@@ -2,7 +2,7 @@
 
 
 using System.Security.Claims;
-using IWantApp.Models.DTOs.Employees;
+using IWantApp.Models.DTOs.Employee;
 using IWantApp.Utilities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

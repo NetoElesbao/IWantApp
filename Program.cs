@@ -42,7 +42,7 @@ builder.Services.AddAuthorization(e =>
 
     e.AddPolicy("EmployeePolicy", e => e.RequireAuthenticatedUser().RequireClaim("EmployeeCode"));
 
-    e.AddPolicy("EmployeePolicy011", e => e.RequireAuthenticatedUser().RequireClaim("EmployeeCode", "011"));
+    e.AddPolicy("EmployeePolicy111", e => e.RequireAuthenticatedUser().RequireClaim("EmployeeCode", "111"));
 });
 builder.Services.AddAuthentication(x =>
 {
@@ -90,27 +90,27 @@ app.MapMethods(EmployeesPost.Pattern, EmployeesPost.HttpMethods, EmployeesPost.H
 app.MapMethods(EmployeesGetAll.Pattern, EmployeesGetAll.HttpMethods, EmployeesGetAll.Handler);
 
 app.MapMethods(TokenPost.Pattern, TokenPost.HttpMethods, TokenPost.Handler);
-app.MapMethods(TokenPost.Pattern, TokenPost.HttpMethods, TokenPost.Handler);
 
+app.MapMethods(ProductGet.Pattern, ProductGet.HttpMethods, ProductGet.Handler);
 app.MapMethods(ProductGetAll.Pattern, ProductGetAll.HttpMethods, ProductGetAll.Handler);
 app.MapMethods(ProductPost.Pattern, ProductPost.HttpMethods, ProductPost.Handler);
 app.MapMethods(ProductPut.Pattern, ProductPut.HttpMethods, ProductPut.Handler);
 app.MapMethods(ProductDelete.Pattern, ProductDelete.HttpMethods, ProductDelete.Handler);
 
-app.UseExceptionHandler("/error");
-app.Map("/error", (HttpContext context) =>
-{
-    var error = context.Features?.Get<IExceptionHandlerFeature>()?.Error;
+// app.UseExceptionHandler("/error");
+// app.Map("/error", (HttpContext context) =>
+// {
+//     var error = context.Features?.Get<IExceptionHandlerFeature>()?.Error;
 
-    if (error != null)
-    {
-        if (error is SqlException)
-        {
-            return Results.Problem(title: "Database out", statusCode: 500);
-        };
-    };
+//     if (error != null)
+//     {
+//         if (error is SqlException)
+//         {
+//             return Results.Problem(title: "Database out", statusCode: 500);
+//         };
+//     };
 
-    return Results.Problem("There was an error", statusCode: 500);
-});
+//     return Results.Problem("There was an error", statusCode: 500);
+// });
 
 app.Run();

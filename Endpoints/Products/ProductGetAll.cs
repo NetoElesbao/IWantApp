@@ -1,4 +1,4 @@
-using IWantApp.Models.DTOs;
+using IWantApp.Models.DTOs.Product;
 
 namespace IWantApp.Endpoints.Products
 {
@@ -10,9 +10,9 @@ namespace IWantApp.Endpoints.Products
 
         public static async Task<IResult> Action(ApplicationDbContext context)
         {
-            var products = context.Products.Select(c => new ProductDTO(c.Name, c.CategoryId, c.Description, c.HasStock)).ToList();
-
-            return Results.Ok(products);
+            var productsOrdenaded = context.Products.Include(p => p.Category).OrderBy(p => p.Name);
+            var result = productsOrdenaded.Select(p => new ProductResponseDTO(p.Name, p.Category.Name, p.Description, p.HasStock));
+            return Results.Ok(result);
         }
     }
 }

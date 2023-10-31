@@ -1,9 +1,9 @@
 
 
 
-namespace IWantApp.Models.DTOs
+namespace IWantApp.Models.DTOs.Product
 {
-    public record ProductDTO
+    public record ProductRequestDTO
     (
         string Name,
         Guid CategoryId,

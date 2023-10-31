@@ -1,5 +1,5 @@
 using System.Security.Claims;
-using IWantApp.Models.DTOs;
+using IWantApp.Models.DTOs.Product;
 using IWantApp.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +12,7 @@ namespace IWantApp.Endpoints.Products
         public static Delegate Handler => Action;
 
         public static async Task<IResult> Action
-        ([FromRoute] Guid id, HttpContext http, ProductDTO productDTO, ApplicationDbContext context)
+        ([FromRoute] Guid id, HttpContext http, ProductRequestDTO productDTO, ApplicationDbContext context)
         {
             var UserId = http.User.Claims.First(e => e.Type.Equals(ClaimTypes.NameIdentifier)).Value;
             var product = await context.Products.FindAsync(id);

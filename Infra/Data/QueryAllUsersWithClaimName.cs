@@ -1,5 +1,5 @@
 using Dapper;
-using IWantApp.Models.DTOs.Employees;
+using IWantApp.Models.DTOs.Employee;
 using Microsoft.Data.SqlClient;
 
 namespace IWantApp.Infra.Data

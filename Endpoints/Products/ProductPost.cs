@@ -1,5 +1,5 @@
 using System.Security.Claims;
-using IWantApp.Models.DTOs;
+using IWantApp.Models.DTOs.Product;
 using IWantApp.Utilities;
 
 
@@ -12,11 +12,12 @@ namespace IWantApp.Endpoints.Products
         public static Delegate Handler => Action;
 
         [Authorize(Policy = "EmployeePolicy")]
-        public static async Task<IResult> Action(ProductDTO productDTO, HttpContext http, ApplicationDbContext context)
+        public static async Task<IResult> Action(ProductRequestDTO productDTO, HttpContext http, ApplicationDbContext context)
         {
             var UserId = http.User.Claims.First(e => e.Type.Equals(ClaimTypes.NameIdentifier)).Value;
+            var category = await context.Categories.FindAsync(productDTO.CategoryId);
             var product = new Product
-            (productDTO.Name, productDTO.CategoryId, productDTO.Description, productDTO.HasStock, UserId, UserId);
+            (productDTO.Name, category, productDTO.Description, productDTO.HasStock, UserId, UserId);
 
             if (!product.IsValid) return Results.ValidationProblem(product.Notifications.ConvertToProblemDetails());
 

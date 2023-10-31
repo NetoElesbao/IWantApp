@@ -6,10 +6,11 @@ namespace IWantApp.Models.Products
 {
     public class Product : Entity
     {
-        public Product(string name, Guid categoryId, string description, bool hasStock, string createdBy, string editedBy)
+        public Product() { }
+        public Product(string name, Category category, string description, bool hasStock, string createdBy, string editedBy)
         {
             Name = name;
-            CategoryId = categoryId;
+            Category = category;
             Description = description;
             HasStock = hasStock;
             CreatedBy = createdBy;
@@ -27,10 +28,11 @@ namespace IWantApp.Models.Products
         private void Validation()
         {
             var contract = new Contract<Product>()
-                .IsGreaterOrEqualsThan(Name, 4, "Name")
                 .IsNotNullOrEmpty(Name, "Name")
-                // .IsNotNullOrEmpty(CategoryId, "CategoryId")
-                // .IsNotNullOrEmpty(HasStock, "HasStock")
+                .IsGreaterOrEqualsThan(Name, 4, "Name")
+                .IsNotNull(Category, "Category", "Category not found")
+                .IsNotNullOrEmpty(Description, "Description")
+                .IsGreaterOrEqualsThan(Description, 4, "Description")
                 .IsNotNullOrEmpty(CreatedBy, "CreatedBy")
                 .IsNotNullOrEmpty(EditedBy, "EditedBy");
             AddNotifications(contract);
