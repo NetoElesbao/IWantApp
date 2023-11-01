@@ -18,6 +18,8 @@ namespace IWantApp.Infra.Data
                 .Property(p => p.Name).IsRequired();
             modelBuilder.Entity<Product>()
                 .Property(p => p.Description).HasMaxLength(255);
+            modelBuilder.Entity<Product>()
+                .Property(p => p.Price).HasColumnType("decimal(10,2)").IsRequired();
 
             modelBuilder.Entity<Category>()
                 .Property(c => c.Name).IsRequired();
@@ -31,4 +33,4 @@ namespace IWantApp.Infra.Data
                 .HaveMaxLength(100);
         }
     }
-} 
+}

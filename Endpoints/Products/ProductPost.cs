@@ -17,7 +17,7 @@ namespace IWantApp.Endpoints.Products
             var UserId = http.User.Claims.First(e => e.Type.Equals(ClaimTypes.NameIdentifier)).Value;
             var category = await context.Categories.FindAsync(productDTO.CategoryId);
             var product = new Product
-            (productDTO.Name, category, productDTO.Description, productDTO.HasStock, UserId, UserId);
+            (productDTO.Name, category, productDTO.Description, productDTO.HasStock, UserId, productDTO.Price);
 
             if (!product.IsValid) return Results.ValidationProblem(product.Notifications.ConvertToProblemDetails());
 

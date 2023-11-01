@@ -6,25 +6,28 @@ namespace IWantApp.Models.Products
 {
     public class Product : Entity
     {
+        public Guid CategoryId { get; set; }
+        public Category Category { get; set; }
+        public string Description { get; set; }
+        public bool HasStock { get; set; } // se há produto no estoque 
+        public decimal Price { get; private set; }
+
         public Product() { }
-        public Product(string name, Category category, string description, bool hasStock, string createdBy, string editedBy)
+        public Product(string name, Category category, string description, bool hasStock, string userId, decimal price)
         {
             Name = name;
             Category = category;
             Description = description;
             HasStock = hasStock;
-            CreatedBy = createdBy;
+            Price = price;
+
+            CreatedBy = userId;
             CreatedOn = DateTime.Now;
-            EditedBy = editedBy;
+            EditedBy = userId;
             EditedOn = DateTime.Now;
 
             Validation();
         }
-        public Guid CategoryId { get; set; }
-        public Category Category { get; set; }
-        public string Description { get; set; }
-        public bool HasStock { get; set; } // se há produto no estoque 
-
         private void Validation()
         {
             var contract = new Contract<Product>()
@@ -33,6 +36,7 @@ namespace IWantApp.Models.Products
                 .IsNotNull(Category, "Category", "Category not found")
                 .IsNotNullOrEmpty(Description, "Description")
                 .IsGreaterOrEqualsThan(Description, 4, "Description")
+                .IsGreaterOrEqualsThan(Price, 1, "Price")
                 .IsNotNullOrEmpty(CreatedBy, "CreatedBy")
                 .IsNotNullOrEmpty(EditedBy, "EditedBy");
             AddNotifications(contract);
