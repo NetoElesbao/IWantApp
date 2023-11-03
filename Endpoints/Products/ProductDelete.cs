@@ -19,7 +19,8 @@ namespace IWantApp.Endpoints.Products
 
             await context.SaveChangesAsync();
 
-            return Results.Ok(new ProductResponseDTO(product.Name, product.Category.Name, product.Description, product.HasStock));
+            return Results.Ok(
+                new ProductResponseDTO(product.Name, product.Category.Name, product.Description, product.Price, product.HasStock));
         }
 
     }

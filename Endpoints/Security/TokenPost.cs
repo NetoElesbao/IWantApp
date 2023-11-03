@@ -20,7 +20,8 @@ namespace IWantApp.Endpoints.Security
             LoginRequest loginRequest,
             UserManager<IdentityUser> userManager,
             IConfiguration configuration,
-            ILogger<TokenPost> logger
+            ILogger<TokenPost> logger,
+            IWebHostEnvironment environment
         )
         {
             logger.LogInformation("Getting token");
@@ -53,7 +54,8 @@ namespace IWantApp.Endpoints.Security
 
                 Audience = configuration["JwtBearerTokenSettings:Audience"],
 
-                Expires = DateTime.UtcNow.AddHours(1)
+                Expires = environment.IsDevelopment() || environment.IsStaging() ?
+                        DateTime.UtcNow.AddYears(1) : DateTime.UtcNow.AddMinutes(2)
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();

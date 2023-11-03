@@ -93,6 +93,7 @@ app.MapMethods(TokenPost.Pattern, TokenPost.HttpMethods, TokenPost.Handler);
 
 app.MapMethods(ProductGet.Pattern, ProductGet.HttpMethods, ProductGet.Handler);
 app.MapMethods(ProductGetAll.Pattern, ProductGetAll.HttpMethods, ProductGetAll.Handler);
+app.MapMethods(ProductGetShowcase.Pattern, ProductGetShowcase.HttpMethods, ProductGetShowcase.Handler);
 app.MapMethods(ProductPost.Pattern, ProductPost.HttpMethods, ProductPost.Handler);
 app.MapMethods(ProductPut.Pattern, ProductPut.HttpMethods, ProductPut.Handler);
 app.MapMethods(ProductDelete.Pattern, ProductDelete.HttpMethods, ProductDelete.Handler);

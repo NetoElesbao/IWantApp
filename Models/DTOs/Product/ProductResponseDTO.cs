@@ -8,6 +8,7 @@ namespace IWantApp.Models.DTOs.Product
         string Name,
         string NameCategory,
         string Description,
+        decimal Price,
         bool HasStock
     );
 }

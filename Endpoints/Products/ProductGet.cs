@@ -13,7 +13,7 @@ namespace IWantApp.Endpoints.Products
         {
             var product = context.Products.Include(p => p.Category).FirstOrDefaultAsync(p => p.Id.Equals(id)).Result;
             if (product is null) return Results.NotFound("Product not found!");
-            var result = new ProductResponseDTO(product.Name, product.Category.Name, product.Description, product.HasStock);
+            var result = new ProductResponseDTO(product.Name, product.Category.Name, product.Description, product.Price, product.HasStock);
             return Results.Ok(result);
         }
     }
