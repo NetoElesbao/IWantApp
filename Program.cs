@@ -42,7 +42,7 @@ builder.Services.AddAuthorization(e =>
 
     e.AddPolicy("EmployeePolicy", e => e.RequireAuthenticatedUser().RequireClaim("EmployeeCode"));
 
-    e.AddPolicy("EmployeePolicy111", e => e.RequireAuthenticatedUser().RequireClaim("EmployeeCode", "111"));
+    e.AddPolicy("EmployeePolicy011", e => e.RequireAuthenticatedUser().RequireClaim("EmployeeCode", "011"));
 });
 builder.Services.AddAuthentication(x =>
 {
@@ -98,25 +98,25 @@ app.MapMethods(ProductPost.Pattern, ProductPost.HttpMethods, ProductPost.Handler
 app.MapMethods(ProductPut.Pattern, ProductPut.HttpMethods, ProductPut.Handler);
 app.MapMethods(ProductDelete.Pattern, ProductDelete.HttpMethods, ProductDelete.Handler);
 
-app.UseExceptionHandler("/error");
-app.Map("/error", (HttpContext context) =>
-{
-    var error = context.Features?.Get<IExceptionHandlerFeature>()?.Error;
+// app.UseExceptionHandler("/error");
+// app.Map("/error", (HttpContext context) =>
+// {
+//     var error = context.Features?.Get<IExceptionHandlerFeature>()?.Error;
 
-    if (error != null)
-    {
-        if (error is SqlException)
-        {
-            return Results.Problem(title: "Database out", statusCode: 500);
-        };
+//     if (error != null)
+//     {
+//         if (error is SqlException)
+//         {
+//             return Results.Problem(title: "Database out", statusCode: 500);
+//         };
 
-        if (error is BadHttpRequestException)
-        {
-            return Results.Problem(title: "Error to convert data to other type. See all the information sent", statusCode: 500);
-        }
-    };
+//         if (error is BadHttpRequestException)
+//         {
+//             return Results.Problem(title: "Error to convert data to other type. See all the information sent", statusCode: 500);
+//         }
+//     };
 
-    return Results.Problem("There was an error", statusCode: 500);
-});
+//     return Results.Problem("There was an error", statusCode: 500);
+// });
 
 app.Run();

@@ -12,7 +12,8 @@ namespace IWantApp.Endpoints.Products
         public static async Task<IResult> Action(ApplicationDbContext context)
         {
             var productsOrdenaded = context.Products.Include(p => p.Category).OrderBy(p => p.Name);
-            var result = productsOrdenaded.Select(p => new ProductResponseDTO(p.Name, p.Category.Name, p.Description, p.Price, p.HasStock));
+            var result = productsOrdenaded.Select(p =>
+            new ProductResponseDTO(p.Name, p.Category.Name, p.Description, p.HasStock, p.Price, p.Active));
             return Results.Ok(result);
         }
     }

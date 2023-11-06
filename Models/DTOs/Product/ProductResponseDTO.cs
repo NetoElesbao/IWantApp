@@ -6,9 +6,10 @@ namespace IWantApp.Models.DTOs.Product
     public record ProductResponseDTO
     (
         string Name,
-        string NameCategory,
+        string CategoryName,
         string Description,
+        bool HasStock,
         decimal Price,
-        bool HasStock
+        bool Active
     );
 }
