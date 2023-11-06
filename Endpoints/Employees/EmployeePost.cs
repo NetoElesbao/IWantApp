@@ -4,8 +4,6 @@
 using System.Security.Claims;
 using IWantApp.Models.DTOs.Employee;
 using IWantApp.Utilities;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 
 namespace IWantApp.Endpoints.Employees
 {

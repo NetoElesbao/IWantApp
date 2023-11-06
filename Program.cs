@@ -1,6 +1,7 @@
 
 
 
+using IWantApp.Endpoints.Clients;
 using IWantApp.Endpoints.Products;
 using Serilog;
 using Serilog.Sinks.MSSqlServer;
@@ -97,6 +98,8 @@ app.MapMethods(ProductGetShowcase.Pattern, ProductGetShowcase.HttpMethods, Produ
 app.MapMethods(ProductPost.Pattern, ProductPost.HttpMethods, ProductPost.Handler);
 app.MapMethods(ProductPut.Pattern, ProductPut.HttpMethods, ProductPut.Handler);
 app.MapMethods(ProductDelete.Pattern, ProductDelete.HttpMethods, ProductDelete.Handler);
+
+app.MapMethods(ClientPost.Pattern, ClientPost.HttpMethods, ClientPost.Handler);
 
 // app.UseExceptionHandler("/error");
 // app.Map("/error", (HttpContext context) =>
