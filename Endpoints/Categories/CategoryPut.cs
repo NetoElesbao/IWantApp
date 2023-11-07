@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
-using IWantApp.Infra.Data;
 using IWantApp.Models.DTOs;
-using IWantApp.Models.Products;
-using IWantApp.Utilities;
+using IWantApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IWantApp.Endpoints.Categories

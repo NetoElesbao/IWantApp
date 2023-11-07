@@ -1,13 +1,10 @@
 using System.Security.Claims;
-using IWantApp.Infra.Data;
 using IWantApp.Models.DTOs;
-using IWantApp.Models.Products;
-using IWantApp.Utilities;
-using Microsoft.AspNetCore.Authorization;
+using IWantApp.Services;
 
 
 namespace IWantApp.Endpoints.Categories
-{ 
+{
     public class CategoryPost
     {
         public static string Pattern => "/categories";

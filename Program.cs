@@ -3,6 +3,7 @@
 
 using IWantApp.Endpoints.Clients;
 using IWantApp.Endpoints.Products;
+using IWantApp.Services;
 using Serilog;
 using Serilog.Sinks.MSSqlServer;
 
@@ -66,6 +67,7 @@ builder.Services.AddAuthentication(x =>
 });
 
 builder.Services.AddScoped<QueryAllUsersWithClaimName>();
+builder.Services.AddScoped<UserCreator>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

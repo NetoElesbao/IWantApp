@@ -1,6 +1,6 @@
 using System.Security.Claims;
 using IWantApp.Models.DTOs.Product;
-using IWantApp.Utilities;
+using IWantApp.Services;
 
 
 namespace IWantApp.Endpoints.Products

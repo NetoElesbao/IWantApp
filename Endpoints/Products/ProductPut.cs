@@ -1,6 +1,6 @@
 using System.Security.Claims;
 using IWantApp.Models.DTOs.Product;
-using IWantApp.Utilities;
+using IWantApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IWantApp.Endpoints.Products
