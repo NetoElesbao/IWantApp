@@ -18,7 +18,6 @@ namespace IWantApp.Endpoints.Employees
         {
             var userId = http.User.Claims.First(e => e.Type.Equals(ClaimTypes.NameIdentifier)).Value;
 
-
             var ClaimsList = new List<Claim>()
             {
                 new ("Name", employeeDTO.Name),

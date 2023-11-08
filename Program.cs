@@ -44,7 +44,7 @@ builder.Services.AddAuthorization(e =>
 
     e.AddPolicy("EmployeePolicy", e => e.RequireAuthenticatedUser().RequireClaim("EmployeeCode"));
 
-    e.AddPolicy("EmployeePolicy011", e => e.RequireAuthenticatedUser().RequireClaim("EmployeeCode", "011"));
+    e.AddPolicy("EmployeePolicy111", e => e.RequireAuthenticatedUser().RequireClaim("EmployeeCode", "111"));
 });
 builder.Services.AddAuthentication(x =>
 {
@@ -102,6 +102,7 @@ app.MapMethods(ProductPut.Pattern, ProductPut.HttpMethods, ProductPut.Handler);
 app.MapMethods(ProductDelete.Pattern, ProductDelete.HttpMethods, ProductDelete.Handler);
 
 app.MapMethods(ClientPost.Pattern, ClientPost.HttpMethods, ClientPost.Handler);
+app.MapMethods(ClientGet.Pattern, ClientGet.HttpMethods, ClientGet.Handler);
 
 // app.UseExceptionHandler("/error");
 // app.Map("/error", (HttpContext context) =>
