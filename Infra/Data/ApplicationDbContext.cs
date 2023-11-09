@@ -2,6 +2,8 @@
 
 
 
+using IWantApp.Models.Orders;
+
 namespace IWantApp.Infra.Data
 {
     public class ApplicationDbContext : IdentityDbContext<IdentityUser>
@@ -9,10 +11,16 @@ namespace IWantApp.Infra.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
         public DbSet<Product> Products => Set<Product>();
         public DbSet<Category> Categories => Set<Category>();
+        public DbSet<Order> Orders => Set<Order>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Ignore<Notification>();
+
+            modelBuilder.Entity<Category>()
+                .Property(c => c.Name).IsRequired();
 
             modelBuilder.Entity<Product>()
                 .Property(p => p.Name).IsRequired();
@@ -21,10 +29,14 @@ namespace IWantApp.Infra.Data
             modelBuilder.Entity<Product>()
                 .Property(p => p.Price).HasColumnType("decimal(10,2)").IsRequired();
 
-            modelBuilder.Entity<Category>()
-                .Property(c => c.Name).IsRequired();
-
-            modelBuilder.Ignore<Notification>();
+            modelBuilder.Entity<Order>()
+                .Property(o => o.ClientId).IsRequired();
+            modelBuilder.Entity<Order>()
+                .Property(o => o.DeliveryAddress).IsRequired();
+            modelBuilder.Entity<Order>()
+                .HasMany(o => o.Products)
+                .WithMany(p => p.Orders)
+                .UsingEntity(e => e.ToTable("OrderProducts"));
         }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)

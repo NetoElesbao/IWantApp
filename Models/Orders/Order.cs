@@ -4,7 +4,7 @@
 using Flunt.Validations;
 using IWantApp.Models.Products.Base;
 
-namespace IWantApp.Models.Order
+namespace IWantApp.Models.Orders
 {
     public class Order : Entity
     {

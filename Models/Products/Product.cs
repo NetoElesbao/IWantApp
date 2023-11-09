@@ -1,6 +1,6 @@
 using Flunt.Validations;
+using IWantApp.Models.Orders;
 using IWantApp.Models.Products.Base;
-
 
 namespace IWantApp.Models.Products
 {
@@ -11,6 +11,7 @@ namespace IWantApp.Models.Products
         public string Description { get; set; }
         public bool HasStock { get; set; } // se há produto no estoque 
         public decimal Price { get; private set; }
+        public ICollection<Order> Orders { get; private set; }
 
         public Product() { }
         public Product(string name, Category category, string description, bool hasStock, string userId, decimal price)
