@@ -7,6 +7,7 @@ namespace IWantApp.Models.Products
 {
     public class Category : Entity
     {
+        public bool Active { get; set; } = true;
         public Category(string name, string createdBy, string editedBy)
         {
             Name = name;

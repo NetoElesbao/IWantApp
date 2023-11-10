@@ -11,6 +11,7 @@ namespace IWantApp.Models.Products
         public string Description { get; set; }
         public bool HasStock { get; set; } // se há produto no estoque 
         public decimal Price { get; private set; }
+        public bool Active { get; set; } = true;
         public ICollection<Order> Orders { get; private set; }
 
         public Product() { }

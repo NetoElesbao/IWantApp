@@ -28,9 +28,6 @@ namespace IWantApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("Active")
-                        .HasColumnType("bit");
-
                     b.Property<Guid>("ClientId")
                         .HasColumnType("uniqueidentifier");
 
