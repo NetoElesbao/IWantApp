@@ -5,16 +5,16 @@ using Flunt.Validations;
 using IWantApp.Models.Products.Base;
 
 namespace IWantApp.Models.Orders
-{
+{ 
     public class Order : Entity
     {
-        public Guid ClientId { get; private set; }
+        public string ClientId { get; private set; }
         public List<Product> Products { get; private set; }
         public decimal Total { get; private set; } = 0;
         public string DeliveryAddress { get; private set; }
         public Order() { }
 
-        public Order(Guid clientId, string clientName, List<Product> products, string deliveryAddress)
+        public Order(string clientId, string clientName, List<Product> products, string deliveryAddress)
         {
             ClientId = clientId;
             Products = products;

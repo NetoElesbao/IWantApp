@@ -25,9 +25,10 @@ namespace IWantApp.Endpoints.Security
             logger.LogError("Error");
 
             var user = await userManager.FindByEmailAsync(loginRequest.Email);
-            var userCLaims = await userManager.GetClaimsAsync(user);
 
             if (user is null) return Results.NotFound("User not found!");
+
+            var userCLaims = await userManager.GetClaimsAsync(user);
 
             if (!await userManager.CheckPasswordAsync(user, loginRequest.Password)) return Results.BadRequest("Bad password!");
 
