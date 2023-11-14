@@ -20,7 +20,7 @@ namespace IWantApp.Endpoints.Products
             await context.SaveChangesAsync();
 
             return Results.Ok(new ProductResponseDTO(
-                product.Name, product.Category.Name, product.Description,
+                product.Id, product.Name, product.Category.Name, product.Description,
                 product.HasStock, product.Price, product.Active));
         }
 

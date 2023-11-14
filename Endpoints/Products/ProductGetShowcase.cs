@@ -32,7 +32,7 @@ namespace IWantApp.Endpoints.Products
 
             return Results.Ok(query
             .Select(e => new ProductResponseDTO(
-                e.Name, e.Category.Name, e.Description, e.HasStock, e.Price, e.Active)));
+                e.Id ,e.Name, e.Category.Name, e.Description, e.HasStock, e.Price, e.Active)));
         }
     }
 }

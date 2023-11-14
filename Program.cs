@@ -104,6 +104,8 @@ app.MapMethods(ProductDelete.Pattern, ProductDelete.HttpMethods, ProductDelete.H
 app.MapMethods(ClientPost.Pattern, ClientPost.HttpMethods, ClientPost.Handler);
 app.MapMethods(ClientGet.Pattern, ClientGet.HttpMethods, ClientGet.Handler);
 
+app.MapMethods(OrderPost.Pattern, OrderPost.HttpMethods, OrderPost.Handler);
+
 // app.UseExceptionHandler("/error");
 // app.Map("/error", (HttpContext context) =>
 // {

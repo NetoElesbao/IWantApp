@@ -13,7 +13,7 @@ namespace IWantApp.Endpoints.Products
         {
             var productsOrdenaded = context.Products.Include(p => p.Category).OrderBy(p => p.Name);
             var result = productsOrdenaded.Select(p =>
-            new ProductResponseDTO(p.Name, p.Category.Name, p.Description, p.HasStock, p.Price, p.Active));
+            new ProductResponseDTO(p.Id, p.Name, p.Category.Name, p.Description, p.HasStock, p.Price, p.Active));
             return Results.Ok(result);
         }
     }
