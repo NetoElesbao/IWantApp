@@ -7,4 +7,4 @@ namespace IWantApp.Models.DTOs.Order
         List<Guid> ProductsIds,
         string DeliveryAddress
     );
-}
+} 

@@ -12,11 +12,14 @@ namespace IWantApp.Endpoints.Clients
         public static string[] HttpMethods => new string[] { HttpMethod.Post.ToString() };
         public static Delegate Handler => Action;
 
-
+        [Authorize(Policy = "CpfPolicy")]
         public static async Task<IResult> Action(OrderDTO orderDTO, HttpContext httpContext, ApplicationDbContext context)
         {
             var userId = httpContext.User.Claims.First(e => e.Type == ClaimTypes.NameIdentifier).Value;
             var userName = httpContext.User.Claims.First(e => e.Type == "Name").Value;
+
+            if (orderDTO.ProductsIds is null || !orderDTO.ProductsIds.Any()) return Results.BadRequest("Ids of products necessary!");
+            if (string.IsNullOrEmpty(orderDTO.DeliveryAddress)) return Results.BadRequest("Delivery Address is necessary!");
 
             var products = new List<Product>();
             var productsFound = context.Products.Where(e => orderDTO.ProductsIds.Contains(e.Id)).ToList();

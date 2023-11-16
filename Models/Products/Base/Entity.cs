@@ -12,7 +12,7 @@ namespace IWantApp.Models.Products.Base
             Id = Guid.NewGuid();
         }
         public Guid Id { get; set; }
-        public string Name { get; protected set; }
+        public string? Name { get; protected set; }
         public string CreatedBy { get; set; } // quem criou 
         public DateTime CreatedOn { get; set; } // quando criou
         public string EditedBy { get; set; } // quem editou
