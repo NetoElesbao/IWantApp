@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using IWantApp.Models.DTOs.Order;
 using IWantApp.Models.Orders;
+using IWantApp.Services;
 
 
 
@@ -18,13 +19,15 @@ namespace IWantApp.Endpoints.Clients
             var userId = httpContext.User.Claims.First(e => e.Type == ClaimTypes.NameIdentifier).Value;
             var userName = httpContext.User.Claims.First(e => e.Type == "Name").Value;
 
-            if (orderDTO.ProductsIds is null || !orderDTO.ProductsIds.Any()) return Results.BadRequest("Ids of products necessary!");
-            if (string.IsNullOrEmpty(orderDTO.DeliveryAddress)) return Results.BadRequest("Delivery Address is necessary!");
+            List<Product> productsFound = null;
 
-            var products = new List<Product>();
-            var productsFound = context.Products.Where(e => orderDTO.ProductsIds.Contains(e.Id)).ToList();
+            if (orderDTO.ProductsIds is not null || orderDTO.ProductsIds.Any())
+                productsFound = context.Products.Where(e => orderDTO.ProductsIds.Contains(e.Id)).ToList();
 
             var order = new Order(userId, userName, productsFound, orderDTO.DeliveryAddress);
+
+            if (!order.IsValid) return Results.ValidationProblem(order.Notifications.ConvertToProblemDetails());
+
             await context.Orders.AddAsync(order);
             await context.SaveChangesAsync();
 

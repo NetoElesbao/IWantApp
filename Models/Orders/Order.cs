@@ -1,11 +1,11 @@
 
- 
+
 
 using Flunt.Validations;
 using IWantApp.Models.Products.Base;
 
 namespace IWantApp.Models.Orders
-{ 
+{
     public class Order : Entity
     {
         public string ClientId { get; private set; }
@@ -35,8 +35,9 @@ namespace IWantApp.Models.Orders
         private void Validation()
         {
             var contract = new Contract<Order>()
-                .IsNotNull(ClientId, "ClientId")
-                .IsNotNull(Products, "Products");
+                // .IsNotNull(ClientId, "ClientId")
+                .IsTrue(Products is null || Products.Any(), "Products", "Ids of products necessary!")
+                .IsNotNullOrEmpty(DeliveryAddress, "DeliveryAddress", "Delivery Address is necessary!");
             AddNotifications(contract);
         }
     }
