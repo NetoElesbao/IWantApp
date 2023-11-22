@@ -2,6 +2,7 @@
 
 
 using IWantApp.Endpoints.Clients;
+using IWantApp.Endpoints.Orders;
 using IWantApp.Endpoints.Products;
 using IWantApp.Services;
 using Serilog;
@@ -105,6 +106,7 @@ app.MapMethods(ClientPost.Pattern, ClientPost.HttpMethods, ClientPost.Handler);
 app.MapMethods(ClientGet.Pattern, ClientGet.HttpMethods, ClientGet.Handler);
 
 app.MapMethods(OrderPost.Pattern, OrderPost.HttpMethods, OrderPost.Handler);
+app.MapMethods(OrderGet.Pattern, OrderGet.HttpMethods, OrderGet.Handler);
 
 // app.UseExceptionHandler("/error");
 // app.Map("/error", (HttpContext context) =>

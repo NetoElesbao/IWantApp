@@ -2,7 +2,7 @@
 
 namespace IWantApp.Models.DTOs.Order
 {
-    public record OrderDTO
+    public record OrderRequestDTO
     (
         List<Guid> ProductsIds,
         string DeliveryAddress

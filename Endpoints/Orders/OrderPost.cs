@@ -14,7 +14,7 @@ namespace IWantApp.Endpoints.Clients
         public static Delegate Handler => Action;
 
         [Authorize(Policy = "CpfPolicy")]
-        public static async Task<IResult> Action(OrderDTO orderDTO, HttpContext httpContext, ApplicationDbContext context)
+        public static async Task<IResult> Action(OrderRequestDTO orderDTO, HttpContext httpContext, ApplicationDbContext context)
         {
             var userId = httpContext.User.Claims.First(e => e.Type == ClaimTypes.NameIdentifier).Value;
             var userName = httpContext.User.Claims.First(e => e.Type == "Name").Value;
