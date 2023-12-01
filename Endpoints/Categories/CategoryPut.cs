@@ -11,6 +11,7 @@ namespace IWantApp.Endpoints.Categories
         public static string[] HttpMethods => new string[] { HttpMethod.Put.ToString() };
         public static Delegate Handler => Action;
 
+        [Authorize(Policy = "EmployeePolicy")]
         public static async Task<IResult> Action([FromRoute] Guid id, HttpContext http, CategoryDTO categoryDTO, ApplicationDbContext context)
         {
             var UserId = http.User.Claims.First(e => e.Type.Equals(ClaimTypes.NameIdentifier)).Value;

@@ -11,6 +11,7 @@ namespace IWantApp.Endpoints.Categories
         public static string[] HttpMethods => new string[] { HttpMethod.Delete.ToString() };
         public static Delegate Handler => Action;
 
+        [Authorize(Policy = "EmployeePolicy")]
         public static async Task<IResult> Action(Guid id, ApplicationDbContext context)
         {
             var category = await context.Categories.FindAsync(id);

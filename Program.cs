@@ -45,8 +45,11 @@ builder.Services.AddAuthorization(e =>
 
     e.AddPolicy("EmployeePolicy", e => e.RequireAuthenticatedUser().RequireClaim("EmployeeCode"));
 
+    e.AddPolicy("EmployeeReportPolicy", e => e.RequireAuthenticatedUser().RequireClaim("EmployeeCode", "111"));
+
     e.AddPolicy("CpfPolicy", e => e.RequireAuthenticatedUser().RequireClaim("CPf"));
 });
+
 builder.Services.AddAuthentication(x =>
 {
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

@@ -9,7 +9,7 @@ namespace IWantApp.Endpoints.Products
         public static string[] HttpMethods => new string[] { HttpMethod.Get.ToString() };
         public static Delegate Handler => Action;
 
-        [Authorize(policy: "EmployeePolicy")]
+        [Authorize(policy: "EmployeeReportPolicy")]
         public static async Task<IResult> Action(QueryallproductsSold query)
         {
             return Results.Ok(await query.ExecuteQuery());

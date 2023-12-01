@@ -13,11 +13,12 @@ namespace IWantApp.Endpoints.Categories
         public static string[] HttpMethods => new string[] { HttpMethod.Get.ToString() };
         public static Delegate Handler => Action;
 
+        [Authorize(Policy = "EmployeePolicy")]
         public static async Task<IResult> Action(ApplicationDbContext context)
         {
             var categories = context.Categories.Select(c => new CategoryDTO(c.Id, c.Name)).ToList();
 
-            return Results.Ok(categories); 
+            return Results.Ok(categories);
         }
     }
-} 
+}

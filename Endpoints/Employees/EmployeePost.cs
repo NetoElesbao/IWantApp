@@ -13,8 +13,9 @@ namespace IWantApp.Endpoints.Employees
         public static string[] HttpMethods => new string[] { HttpMethod.Post.ToString() };
         public static Delegate Handler => Action;
 
+        [Authorize(Policy = "EmployeePolicy")]
         public static async Task<IResult> Action(
-            EmployeeRequestDTO employeeDTO, HttpContext http, UserCreator userCreator)
+                    EmployeeRequestDTO employeeDTO, HttpContext http, UserCreator userCreator)
         {
             var userId = http.User.Claims.First(e => e.Type.Equals(ClaimTypes.NameIdentifier)).Value;
 
