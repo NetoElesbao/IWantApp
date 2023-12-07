@@ -2,6 +2,7 @@
 
 
 using IWantApp.Models.DTOs;
+using Microsoft.AspNetCore.Mvc;
 
 namespace IWantApp.Endpoints.Categories
 {
@@ -12,7 +13,7 @@ namespace IWantApp.Endpoints.Categories
         public static Delegate Handler => Action;
 
         [Authorize(Policy = "EmployeePolicy")]
-        public static async Task<IResult> Action(Guid id, ApplicationDbContext context)
+        public static async Task<IResult> Action(Guid id, [FromServices] ApplicationDbContext context)
         {
             var category = await context.Categories.FindAsync(id);
 

@@ -1,5 +1,57 @@
-.vs/
-.vscode/
-.txt/
+# Arquivos de compilação
 bin/
 obj/
+
+# Arquivos de publicação
+*.exe
+*.dll
+*.pdb
+*.dll.config
+
+# Arquivos temporários
+[Tt]emp/
+[Vv]iews/[Pp]reviews/
+*.dotnet/
+
+# Pacotes NuGet
+packages/
+*.nupkg
+*.snupkg
+
+# Arquivos gerados pelo Visual Studio
+.vs/
+*.vscode/
+
+# Arquivos de usuário e configurações
+*.user
+*.suo
+*.sln.docstates
+
+# Logs e arquivos de erro
+*.log
+*.log.*
+*.npm-debug.log*
+
+# Arquivos de análise e cobertura de código
+*.sln.ide
+*.sln.ide-shm
+*.sln.ide-wal
+*.opendb
+
+# Arquivos do JetBrains Rider
+.idea/
+*.sln.iml
+
+# Arquivos de configuração do Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Cache e arquivos temporários do sistema
+$RECYCLE.BIN/
+System Volume Information/
+
+
+# Arquivos de configuração local
+appsettings.Development.json
+appsettings.json

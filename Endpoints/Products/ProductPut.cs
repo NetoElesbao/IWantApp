@@ -12,7 +12,7 @@ namespace IWantApp.Endpoints.Products
         public static Delegate Handler => Action;
 
         public static async Task<IResult> Action
-        ([FromRoute] Guid id, HttpContext http, ProductRequestDTO productDTO, ApplicationDbContext context)
+        ([FromRoute] Guid id, HttpContext http, ProductRequestDTO productDTO, [FromServices] ApplicationDbContext context)
         {
             var UserId = http.User.Claims.First(e => e.Type.Equals(ClaimTypes.NameIdentifier)).Value;
             var product = await context.Products.FindAsync(id);

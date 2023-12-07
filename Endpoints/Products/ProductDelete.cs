@@ -1,4 +1,5 @@
 using IWantApp.Models.DTOs.Product;
+using Microsoft.AspNetCore.Mvc;
 
 
 namespace IWantApp.Endpoints.Products
@@ -9,7 +10,7 @@ namespace IWantApp.Endpoints.Products
         public static string[] HttpMethods => new string[] { HttpMethod.Delete.ToString() };
         public static Delegate Handler => Action;
 
-        public static async Task<IResult> Action(Guid id, ApplicationDbContext context)
+        public static async Task<IResult> Action(Guid id, [FromServices] ApplicationDbContext context)
         {
             var product = await context.Products.FindAsync(id);
 

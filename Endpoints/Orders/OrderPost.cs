@@ -2,6 +2,7 @@ using System.Security.Claims;
 using IWantApp.Models.DTOs.Order;
 using IWantApp.Models.Orders;
 using IWantApp.Services;
+using Microsoft.AspNetCore.Mvc;
 
 
 
@@ -14,7 +15,7 @@ namespace IWantApp.Endpoints.Clients
         public static Delegate Handler => Action;
 
         [Authorize(Policy = "CpfPolicy")]
-        public static async Task<IResult> Action(OrderRequestDTO orderDTO, HttpContext httpContext, ApplicationDbContext context)
+        public static async Task<IResult> Action(OrderRequestDTO orderDTO, HttpContext httpContext, [FromServices] ApplicationDbContext context)
         {
             var userId = httpContext.User.Claims.First(e => e.Type == ClaimTypes.NameIdentifier).Value;
             var userName = httpContext.User.Claims.First(e => e.Type == "Name").Value;

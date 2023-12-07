@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using IWantApp.Models.DTOs.Product;
 using IWantApp.Services;
+using Microsoft.AspNetCore.Mvc;
 
 
 namespace IWantApp.Endpoints.Products
@@ -12,7 +13,7 @@ namespace IWantApp.Endpoints.Products
         public static Delegate Handler => Action;
 
         [Authorize(Policy = "EmployeePolicy")]
-        public static async Task<IResult> Action(ProductRequestDTO productDTO, HttpContext http, ApplicationDbContext context)
+        public static async Task<IResult> Action(ProductRequestDTO productDTO, HttpContext http, [FromServices] ApplicationDbContext context)
         {
             var UserId = http.User.Claims.First(e => e.Type.Equals(ClaimTypes.NameIdentifier)).Value;
             var category = await context.Categories.FindAsync(productDTO.CategoryId);

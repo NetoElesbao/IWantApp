@@ -3,6 +3,7 @@
 
 
 using IWantApp.Models.DTOs.Product;
+using Microsoft.AspNetCore.Mvc;
 
 namespace IWantApp.Endpoints.Products
 {
@@ -14,7 +15,7 @@ namespace IWantApp.Endpoints.Products
 
         [AllowAnonymous]
         public static async Task<IResult> Action(
-            ApplicationDbContext context, int page = 1, int row = 10, string orderBy = "name")
+           [FromServices] ApplicationDbContext context, int page = 1, int row = 10, string orderBy = "name")
         {
             if (row > 10) return Results.Problem("Row with max 10", statusCode: 400);
 
@@ -32,7 +33,7 @@ namespace IWantApp.Endpoints.Products
 
             return Results.Ok(query
             .Select(e => new ProductResponseDTO(
-                e.Id ,e.Name, e.Category.Name, e.Description, e.HasStock, e.Price, e.Active)));
+                e.Id, e.Name, e.Category.Name, e.Description, e.HasStock, e.Price, e.Active)));
         }
     }
 }

@@ -16,7 +16,7 @@ namespace IWantApp.Models.Products
 
         public Product() { }
         public Product(string name, Category category, string description, bool hasStock, string userId, decimal price)
-        {
+        {   
             Name = name;
             Category = category;
             Description = description;

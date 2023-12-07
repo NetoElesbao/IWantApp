@@ -12,7 +12,7 @@ namespace IWantApp.Endpoints.Categories
         public static Delegate Handler => Action;
 
         [Authorize(Policy = "EmployeePolicy")]
-        public static async Task<IResult> Action([FromRoute] Guid id, HttpContext http, CategoryDTO categoryDTO, ApplicationDbContext context)
+        public static async Task<IResult> Action([FromRoute] Guid id, HttpContext http, CategoryDTO categoryDTO, [FromServices] ApplicationDbContext context)
         {
             var UserId = http.User.Claims.First(e => e.Type.Equals(ClaimTypes.NameIdentifier)).Value;
             var category = await context.Categories.FindAsync(id);

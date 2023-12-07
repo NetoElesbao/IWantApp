@@ -113,25 +113,25 @@ app.MapMethods(ClientGet.Pattern, ClientGet.HttpMethods, ClientGet.Handler);
 app.MapMethods(OrderPost.Pattern, OrderPost.HttpMethods, OrderPost.Handler);
 app.MapMethods(OrderGet.Pattern, OrderGet.HttpMethods, OrderGet.Handler);
 
-// app.UseExceptionHandler("/error");
-// app.Map("/error", (HttpContext context) =>
-// {
-//     var error = context.Features?.Get<IExceptionHandlerFeature>()?.Error;
+app.UseExceptionHandler("/error");
+app.Map("/error", (HttpContext context) =>
+{
+    var error = context.Features?.Get<IExceptionHandlerFeature>()?.Error;
 
-//     if (error != null)
-//     {
-//         if (error is SqlException)
-//         {
-//             return Results.Problem(title: "Database out", statusCode: 500);
-//         };
+    if (error != null)
+    {
+        if (error is SqlException)
+        {
+            return Results.Problem(title: "Database out", statusCode: 500);
+        };
 
-//         if (error is BadHttpRequestException)
-//         {
-//             return Results.Problem(title: "Error to convert data to other type. See all the information sent", statusCode: 500);
-//         }
-//     };
+        if (error is BadHttpRequestException)
+        {
+            return Results.Problem(title: "Error to convert data to other type. See all the information sent", statusCode: 500);
+        }
+    };
 
-//     return Results.Problem("There was an error", statusCode: 500);
-// });
+    return Results.Problem("There was an error", statusCode: 500);
+});
 
 app.Run();
