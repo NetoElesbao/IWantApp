@@ -54,4 +54,6 @@ System Volume Information/
 
 # Arquivos de configuração local
 appsettings.Development.json
+appsettings.Production.json
+appsettings.Staging.json
 appsettings.json
